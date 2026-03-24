@@ -77,7 +77,7 @@
       color: #fff;
       text-decoration: none;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
       transition: transform .15s ease, box-shadow .15s ease;
       box-shadow: 0 10px 30px rgba(59,130,246,0.35);
     }
@@ -85,6 +85,48 @@
     .cta:hover {
       transform: translateY(-1px);
       box-shadow: 0 14px 40px rgba(59,130,246,0.45);
+    }
+
+    .about {
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .about p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 20px 0 10px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 8px;
+    }
+
+    .feature-list li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .feature-list li::before {
+      content: "·";
+      position: absolute;
+      left: 6px;
+      color: var(--accent);
+      font-weight: 700;
     }
 
     footer {
@@ -115,6 +157,51 @@
 
     <!-- Replace with App Store / Google Play link -->
     <a href="#" class="cta">Coming soon</a>
+
+    <div class="about">
+      <p>FormCreator is a mobile form builder for iPhone that lets you create professional forms, surveys, and questionnaires in minutes — with automatic Google Drive sync, built-in analytics, and data export.</p>
+
+      <div class="section-title">Form Builder</div>
+      <ul class="feature-list">
+        <li>Drag-and-drop editor with sections</li>
+        <li>12 question types: text, multiple choice, dropdown, scale, date, time, number, email, URL, file upload, and more</li>
+        <li>Required/optional questions, hints, images, and YouTube videos</li>
+      </ul>
+
+      <div class="section-title">Sharing</div>
+      <ul class="feature-list">
+        <li>Unique link for each form</li>
+        <li>Share via messengers, email, and social media</li>
+        <li>Preview before publishing</li>
+      </ul>
+
+      <div class="section-title">Analytics &amp; Responses</div>
+      <ul class="feature-list">
+        <li>Summary with charts and response statistics</li>
+        <li>Detailed per-question analysis</li>
+        <li>Per-respondent view with filtering and sorting</li>
+      </ul>
+
+      <div class="section-title">Data Export</div>
+      <ul class="feature-list">
+        <li>Export to CSV and Excel (.xlsx)</li>
+        <li>Save to Google Drive</li>
+      </ul>
+
+      <div class="section-title">Google Drive Sync</div>
+      <ul class="feature-list">
+        <li>Automatic sync of all forms</li>
+        <li>Access forms from any device</li>
+        <li>Data stored on your Google Drive</li>
+      </ul>
+
+      <div class="section-title">Personalization</div>
+      <ul class="feature-list">
+        <li>Dark and light themes</li>
+        <li>3 languages: English, Russian, Spanish</li>
+        <li>Custom form background color and cover image</li>
+      </ul>
+    </div>
 
     <footer>
       <a href="privacy.html">Privacy Policy</a>
