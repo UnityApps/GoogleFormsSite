@@ -9,204 +9,752 @@
   <!-- App Icon -->
   <link rel="icon" href="app_icon2.png" type="image/png" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #3b82f6;
+      --cream: #faf7f2;
+      --warm-white: #f5f0e8;
+      --charcoal: #1a1a1a;
+      --ink: #2d2d2d;
+      --stone: #8a8578;
+      --coral: #e85d3a;
+      --coral-soft: #f0734f;
+      --coral-glow: rgba(232, 93, 58, 0.15);
+      --sand: #e8e0d4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Instrument Sans', -apple-system, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Inter, Helvetica, Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: radial-gradient(1200px 600px at 50% -20%, #1e293b, var(--bg));
-      color: var(--text);
-      min-height: 100vh;
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* — Grain overlay — */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+      z-index: 9999;
+    }
+
+    /* — Navigation — */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(250, 247, 242, 0.8);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .nav-logo {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 24px;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--charcoal);
     }
 
-    .card {
-      max-width: 420px;
-      width: 100%;
-      background: linear-gradient(180deg, #020617, var(--card));
-      border-radius: 20px;
-      padding: 32px 28px 28px;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .icon {
-      width: 96px;
-      height: 96px;
-      border-radius: 24px;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 10px;
+    .nav-logo span {
+      font-family: var(--serif);
+      font-size: 20px;
       letter-spacing: -0.02em;
     }
 
-    p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 24px;
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
     }
 
-    .cta {
-      display: inline-block;
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #2563eb, var(--accent));
+    .nav-links a {
+      text-decoration: none;
+      color: var(--stone);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links a:hover {
+      color: var(--charcoal);
+    }
+
+    .nav-cta {
+      background: var(--charcoal) !important;
+      color: var(--cream) !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    /* — Hero — */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 40px 80px;
+      position: relative;
+    }
+
+    /* Decorative geometric elements */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 120px;
+      right: 60px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--coral-glow), transparent 70%);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 80px;
+      left: 40px;
+      width: 200px;
+      height: 200px;
+      border: 1.5px solid var(--sand);
+      border-radius: 50%;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--stone);
+      margin-bottom: 40px;
+      width: fit-content;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--coral);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--charcoal);
+      max-width: 800px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+
+    .hero-title em {
+      color: var(--coral);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--stone);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      animation: fadeUp 0.8s ease 0.3s both;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--coral);
       color: #fff;
       text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 14px;
       font-weight: 600;
-      margin-bottom: 28px;
-      transition: transform .15s ease, box-shadow .15s ease;
-      box-shadow: 0 10px 30px rgba(59,130,246,0.35);
+      font-size: 16px;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 8px 30px rgba(232, 93, 58, 0.3);
     }
 
-    .cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 40px rgba(59,130,246,0.45);
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(232, 93, 58, 0.4);
+      background: var(--coral-soft);
     }
 
-    .about {
-      text-align: left;
-      margin-bottom: 24px;
+    .btn-primary svg {
+      width: 20px;
+      height: 20px;
     }
 
-    .about p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.6;
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 8px;
+      transition: color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--coral);
+    }
+
+    .btn-secondary svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .btn-secondary:hover svg {
+      transform: translateY(3px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* — Features Section — */
+    .features {
+      padding: 80px 40px 120px;
+      position: relative;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .features-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: -0.02em;
       margin-bottom: 16px;
     }
 
-    .section-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      margin: 20px 0 10px;
-    }
-
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 8px;
-    }
-
-    .feature-list li {
-      font-size: 13px;
-      color: var(--muted);
+    .features-header p {
+      color: var(--stone);
+      font-size: 17px;
+      max-width: 500px;
+      margin: 0 auto;
       line-height: 1.6;
-      padding-left: 18px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 20px;
+      padding: 36px 30px;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       position: relative;
-      margin-bottom: 4px;
+      overflow: hidden;
     }
 
-    .feature-list li::before {
-      content: "·";
+    .feature-card::after {
+      content: '';
       position: absolute;
-      left: 6px;
-      color: var(--accent);
-      font-weight: 700;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--coral);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    footer {
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      border-color: transparent;
+    }
+
+    .feature-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--cream);
+      border: 1px solid var(--sand);
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 16px;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      color: var(--stone);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    .feature-card ul li {
       font-size: 13px;
+      color: var(--stone);
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
     }
 
-    footer a {
-      color: var(--muted);
+    .feature-card ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    /* — Marquee — */
+    .marquee-section {
+      padding: 0;
+      overflow: hidden;
+      border-top: 1px solid var(--sand);
+      border-bottom: 1px solid var(--sand);
+      background: var(--warm-white);
+    }
+
+    .marquee-track {
+      display: flex;
+      animation: scroll 20s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track span {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 48px);
+      color: var(--sand);
+      white-space: nowrap;
+      padding: 28px 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .marquee-track span em {
+      color: var(--coral);
+      font-style: italic;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* — CTA Section — */
+    .cta-section {
+      padding: 120px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--coral-glow), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cta-section p {
+      color: var(--stone);
+      font-size: 17px;
+      margin-bottom: 40px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .cta-section .btn-primary {
+      position: relative;
+    }
+
+    /* — Footer — */
+    footer {
+      padding: 40px;
+      border-top: 1px solid var(--sand);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--stone);
+    }
+
+    .footer-left img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--stone);
       text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
     }
 
-    footer a:hover {
-      color: var(--text);
-      text-decoration: underline;
+    .footer-links a:hover {
+      color: var(--charcoal);
+    }
+
+    /* — Scroll animations — */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* — Responsive — */
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 120px 24px 60px;
+      }
+
+      .hero::before,
+      .hero::after {
+        display: none;
+      }
+
+      .features {
+        padding: 60px 24px 80px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .cta-section {
+        padding: 80px 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px 24px;
+        text-align: center;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="card">
-    <img src="app_icon2.png" alt="FormCreator app icon" class="icon" />
 
-    <h1>FormCreator</h1>
-    <p>Create forms and surveys in minutes.<br />Simple. Fast. Powerful.</p>
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="app_icon2.png" alt="FormCreator" />
+      <span>FormCreator</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="https://apps.apple.com/app/id6755877434" class="nav-cta">Get the App</a>
+    </div>
+  </nav>
 
-    <a href="https://apps.apple.com/app/id6755877434" class="cta">Download on the App Store</a>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Available on iPhone</div>
 
-    <div class="about">
-      <p>FormCreator is a mobile form builder for iPhone that lets you create professional forms, surveys, and questionnaires in minutes — with automatic Google Drive sync, built-in analytics, and data export.</p>
+    <h1 class="hero-title">
+      Build forms<br /><em>effortlessly.</em>
+    </h1>
 
-      <div class="section-title">Form Builder</div>
-      <ul class="feature-list">
-        <li>Drag-and-drop editor with sections</li>
-        <li>12 question types: text, multiple choice, dropdown, scale, date, time, number, email, URL, file upload, and more</li>
-        <li>Required/optional questions, hints, images, and YouTube videos</li>
-      </ul>
+    <p class="hero-sub">
+      Create professional forms, surveys, and questionnaires in minutes — with Google Drive sync, analytics, and data export.
+    </p>
 
-      <div class="section-title">Sharing</div>
-      <ul class="feature-list">
-        <li>Unique link for each form</li>
-        <li>Share via messengers, email, and social media</li>
-        <li>Preview before publishing</li>
-      </ul>
+    <div class="hero-actions">
+      <a href="https://apps.apple.com/app/id6755877434" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="#features" class="btn-secondary">
+        See features
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </section>
 
-      <div class="section-title">Analytics &amp; Responses</div>
-      <ul class="feature-list">
-        <li>Summary with charts and response statistics</li>
-        <li>Detailed per-question analysis</li>
-        <li>Per-respondent view with filtering and sorting</li>
-      </ul>
+  <!-- Marquee -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>Forms &middot;</span>
+      <span><em>Surveys</em> &middot;</span>
+      <span>Analytics &middot;</span>
+      <span><em>Export</em> &middot;</span>
+      <span>Google Drive &middot;</span>
+      <span><em>12 Question Types</em> &middot;</span>
+      <span>Forms &middot;</span>
+      <span><em>Surveys</em> &middot;</span>
+      <span>Analytics &middot;</span>
+      <span><em>Export</em> &middot;</span>
+      <span>Google Drive &middot;</span>
+      <span><em>12 Question Types</em> &middot;</span>
+    </div>
+  </div>
 
-      <div class="section-title">Data Export</div>
-      <ul class="feature-list">
-        <li>Export to CSV and Excel (.xlsx)</li>
-        <li>Save to Google Drive</li>
-      </ul>
-
-      <div class="section-title">Google Drive Sync</div>
-      <ul class="feature-list">
-        <li>Automatic sync of all forms</li>
-        <li>Access forms from any device</li>
-        <li>Data stored on your Google Drive</li>
-      </ul>
-
-      <div class="section-title">Personalization</div>
-      <ul class="feature-list">
-        <li>Dark and light themes</li>
-        <li>3 languages: English, Russian, Spanish</li>
-        <li>Custom form background color and cover image</li>
-      </ul>
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="features-header reveal">
+      <h2>Everything you need</h2>
+      <p>A complete toolkit to create, share, and analyze forms — right from your iPhone.</p>
     </div>
 
-    <footer>
+    <div class="features-grid">
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">✏️</div>
+        <h3>Form Builder</h3>
+        <p>Intuitive drag-and-drop editor with sections and rich content.</p>
+        <ul>
+          <li>12 question types</li>
+          <li>Images & YouTube videos</li>
+          <li>Required fields & hints</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔗</div>
+        <h3>Sharing</h3>
+        <p>Get a unique link for each form and share it anywhere instantly.</p>
+        <ul>
+          <li>Unique shareable link</li>
+          <li>Messengers & social media</li>
+          <li>Preview before publishing</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>Analytics</h3>
+        <p>Charts, statistics, and per-question breakdown at a glance.</p>
+        <ul>
+          <li>Visual response summaries</li>
+          <li>Per-question analysis</li>
+          <li>Filtering & sorting</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">📁</div>
+        <h3>Data Export</h3>
+        <p>Download your data in the format you need, when you need it.</p>
+        <ul>
+          <li>CSV and Excel (.xlsx)</li>
+          <li>Save directly to Drive</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">☁️</div>
+        <h3>Google Drive Sync</h3>
+        <p>All forms automatically synced and accessible from any device.</p>
+        <ul>
+          <li>Automatic cloud backup</li>
+          <li>Cross-device access</li>
+          <li>Your Drive, your data</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎨</div>
+        <h3>Personalization</h3>
+        <p>Make forms yours with themes, colors, and cover images.</p>
+        <ul>
+          <li>Dark & light themes</li>
+          <li>3 languages supported</li>
+          <li>Custom backgrounds</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="reveal">Ready to build<br />your first form?</h2>
+    <p class="reveal">Download FormCreator and start creating professional surveys in minutes.</p>
+    <a href="https://apps.apple.com/app/id6755877434" class="btn-primary reveal">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on App Store
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">
+      <img src="app_icon2.png" alt="FormCreator" />
+      <span>FormCreator</span>
+    </div>
+    <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
-      <span>•</span>
       <a href="terms.html">Terms of Service</a>
-    </footer>
-  </main>
+    </div>
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+      observer.observe(el);
+    });
+  </script>
+
 </body>
 </html>
